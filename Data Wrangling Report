@@ -1,0 +1,21 @@
+Data Wrangling for Capstone 1:                                                                      Understanding consumers' behaviors in InstaCart Market
+Xiao Zhang
+
+1. There are 6 csv files containing the ordering data in InstaCart Market:  
+- orders.csv includes orders in prior, train and test sets with information about order no, user id, order time, and days since prior order
+- aisles.csv includes aisle id and names
+- departments.csv includes department id and names
+- products.csv includes product id, names and corresponding aisle id and department id
+- order_products__prior.csv includes all 32434489 orders in prior dataset with information about order id, product id, add to cart order, whether it is a reorder
+- order_products__train.csv includes all 1384617 orders in train dataset with information about order id, product id, add to cart order, whether it is a reorder
+2. What kind of cleaning steps did you perform?
+- Check number of rows, column names, existence of null values, data types using .head() and .info() 
+- Check whether there are NaNs in the main dataset orders.csv by using df[df.isna()].count(), the results show all 0 in all the columns
+- Check unique values in each columns using                                                                 uni_count = [df[column].nunique() for column in df]
+- Check “prior” and “train” using groupby, found the count in “days_since_prior_order” in “prior” is smaller than the total rows, suggesting there may be NaNs in this column  
+	count_eva = ord_df.groupby('eval_set').count()
+- Understand the relationship between “prior” and “train” dataset by checking orders from one customer and find series of orders are divided into “prior” and “train” by keeping one order in “train” and the rest in “prior”
+3. How did you deal with missing values, if any?
+- Column days_since_prior_order does not have value in “prior” dataset at some rows, meaning they are the first orders. It is reasonable, so leave it as it is. 
+4. Were there outliers, and how did you handle them?
+- No outliner (unreasonable value) is found using boxplot 
